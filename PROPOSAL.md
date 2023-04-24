@@ -1,8 +1,8 @@
 # Major Project Proposal
-
+https://getbootstrap.com/
 ## Project Description
 Hudl/video sharing software
-Coaches and oragizations are able to upload film and include analysis
+Coaches and oragizations are able to upload film and include analysis, and players can watch film. 
 
 ## Needs to have list
  - video playing
