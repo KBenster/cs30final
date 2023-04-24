@@ -14,4 +14,4 @@ Coaches and oragizations are able to upload film and include analysis
  - visually pleasing
  - highlight reels
  - profiles
- - 
+ - playbook
