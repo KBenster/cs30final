@@ -15,3 +15,4 @@ server.listen(port, hostname, () => {
 
 //https://www.sohamkamani.com/nodejs/session-cookie-authentication/
 //https://mariadb.com/kb/en/getting-started-with-the-nodejs-connector/
+//https://github.com/sohamkamani/nodejs-session-cookie-example
