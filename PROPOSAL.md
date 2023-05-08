@@ -1,17 +1,14 @@
 # Major Project Proposal
-https://getbootstrap.com/
+
 ## Project Description
-Hudl/video sharing software
-Coaches and oragizations are able to upload film and include analysis, and players can watch film. 
+Natural Language Processing and Sentiment Analysis
 
 ## Needs to have list
- - video playing
- - notes and metadata attached to videos (down/distance, plays, etc)
- - user/administrator accounts, organizations/teams such that administrators can modify notes, upload and remove videos
- - organize and separate videos
+ - differentiate positive and negative
+ - identify stock symbols with positive, neutral or negative view
+
 
 ## Nice to have list
- - visually pleasing
- - highlight reels
- - profiles
- - playbook
+ - website ability to search for specific information
+ - Python backend using a flask api. The frontend will work using this api.
+ - a live version is hosted on digitalocean

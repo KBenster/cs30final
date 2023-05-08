@@ -1,0 +1,5 @@
+https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news
+https://www.kaggle.com/datasets/sbhatti/financial-sentiment-analysis
+
+https://developers.google.com/machine-learning/glossary/#recurrent_neural_network
+https://www.tensorflow.org/text/tutorials/text_classification_rnn
