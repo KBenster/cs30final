@@ -2,6 +2,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 #disable tqdm progress bar
 tfds.disable_progress_bar()
@@ -80,10 +81,43 @@ model.compile(loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
               optimizer=tf.keras.optimizers.Adam(1e-4),
               metrics=['accuracy'])
 
+#saving and checkpoints
+checkpoint_path = "traininghistory/cp.ckpt"
+checkpoint_dir = os.path.dirname(checkpoint_path)
+
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                 save_weights_only=True,
+                                                 verbose=1)
+
 #train the model...
+
+history = model.fit(train_dataset, epochs=1,
+                    validation_data=test_dataset,
+                    validation_steps=3)
+
+test_loss, test_acc = model.evaluate(test_dataset)
+
+print('Test Loss:', test_loss)
+print('Test Accuracy:', test_acc)
+
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1)
+plot_graphs(history, 'accuracy')
+plt.ylim(None, 1)
+plt.subplot(1, 2, 2)
+plot_graphs(history, 'loss')
+plt.ylim(0, None)
+
+sample_text = ('The movie was cool. The animation and the graphics '
+               'were out of this world. I would recommend this movie.')
+predictions = model.predict(np.array([sample_text]))
+print(predictions)
 
 # ipynb version
 # https://github.com/tensorflow/text/blob/master/docs/tutorials/text_classification_rnn.ipynb
 
 # https://www.tensorflow.org/text/tutorials/text_classification_rnn
 # https://www.tensorflow.org/api_docs/python/tf/data/Dataset#methods_2
+
+# saving models so you dont have to retrain every time you run the program
+# https://www.tensorflow.org/tutorials/keras/save_and_load
