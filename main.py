@@ -89,12 +89,16 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  save_weights_only=True,
                                                  verbose=1)
 
+
+
 #train the model...
 
 history = model.fit(train_dataset, epochs=1,
                     validation_data=test_dataset,
-                    validation_steps=3)
+                    validation_steps=3,
+                    callbacks=[cp_callback])
 
+model.load_weights(checkpoint_path)
 test_loss, test_acc = model.evaluate(test_dataset)
 
 print('Test Loss:', test_loss)
