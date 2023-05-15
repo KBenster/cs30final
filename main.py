@@ -34,6 +34,11 @@ for example, label in train_dataset.take(1):
 BUFFER_SIZE = 10000
 BATCH_SIZE = 64
 
+#Shuffle() shuffles the elements in the dataset. It will select BUFFER_SIZE elements and shuffle them
+#returns the new dataset with the shuffled elements
+
+#Batch() will divide the dataset into batches of BATCH_SIZE
+
 train_dataset = train_dataset.shuffle(BUFFER_SIZE).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 test_dataset = test_dataset.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
@@ -53,13 +58,13 @@ encoder.adapt(train_dataset.map(lambda text, label: text))
 vocab = np.array(encoder.get_vocabulary())
 print(vocab[:20])
 
-encoded_example = encoder(example)[:3].numpy()
-print(encoded_example)
+# encoded_example = encoder(example)[:3].numpy()
+# print(encoded_example)
 
-for n in range(3):
-  print("Original: ", example[n].numpy())
-  print("Round-trip: ", " ".join(vocab[encoded_example[n]]))
-  print()
+# for n in range(3):
+#   print("Original: ", example[n].numpy())
+#   print("Round-trip: ", " ".join(vocab[encoded_example[n]]))
+#   print()
      
 model = tf.keras.Sequential([
     encoder,
@@ -89,16 +94,13 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  save_weights_only=True,
                                                  verbose=1)
 
-
-
 #train the model...
-
 history = model.fit(train_dataset, epochs=1,
                     validation_data=test_dataset,
                     validation_steps=3,
                     callbacks=[cp_callback])
 
-model.load_weights(checkpoint_path)
+#model.load_weights(checkpoint_path)
 test_loss, test_acc = model.evaluate(test_dataset)
 
 print('Test Loss:', test_loss)

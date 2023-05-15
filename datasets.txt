@@ -3,3 +3,12 @@ https://www.kaggle.com/datasets/sbhatti/financial-sentiment-analysis
 
 https://developers.google.com/machine-learning/glossary/#recurrent_neural_network
 https://www.tensorflow.org/text/tutorials/text_classification_rnn
+
+https://realpython.com/nltk-nlp-python/
+
+kaggle
+dacal42847@aicogz.com
+DataBreach123
+
+
+https://blog.paperspace.com/bidirectional-rnn-keras/
