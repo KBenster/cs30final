@@ -3,9 +3,17 @@ import tensorflow_datasets as tfds
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import sqlite3
 
 #disable tqdm progress bar
 tfds.disable_progress_bar()
+
+database_connection = sqlite3.connect('database.db')
+database_connection.execute("""CREATE TABLE `sentiments` (
+                                  `ticker` TEXT(200) NOT NULL,
+                                  `sentiment` INT
+                                );""")
+
 
 def plot_graphs(history, metric):
     plt.plot(history.history[metric])
@@ -42,10 +50,10 @@ BATCH_SIZE = 64
 train_dataset = train_dataset.shuffle(BUFFER_SIZE).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 test_dataset = test_dataset.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
-for example, label in train_dataset.take(1):
-  print('texts: ', example.numpy()[:3])
-  print()
-  print('labels: ', label.numpy()[:3])
+# for example, label in train_dataset.take(1):
+#   print('texts: ', example.numpy()[:3])
+#   print()
+#   print('labels: ', label.numpy()[:3])
 
 
 #The adapt method sets the layer's vocabulary
@@ -54,9 +62,7 @@ encoder = tf.keras.layers.TextVectorization(
     max_tokens=VOCAB_SIZE)
 encoder.adapt(train_dataset.map(lambda text, label: text))
 
-
 vocab = np.array(encoder.get_vocabulary())
-print(vocab[:20])
 
 # encoded_example = encoder(example)[:3].numpy()
 # print(encoded_example)
@@ -95,11 +101,12 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  verbose=1)
 
 #train the model...
-history = model.fit(train_dataset, epochs=1,
+history = model.fit(train_dataset, epochs=3,
                     validation_data=test_dataset,
-                    validation_steps=3,
+                    validation_steps=30,
                     callbacks=[cp_callback])
 
+model.save("model1.h5")
 #model.load_weights(checkpoint_path)
 test_loss, test_acc = model.evaluate(test_dataset)
 
@@ -118,6 +125,7 @@ sample_text = ('The movie was cool. The animation and the graphics '
                'were out of this world. I would recommend this movie.')
 predictions = model.predict(np.array([sample_text]))
 print(predictions)
+database_connection.close()
 
 # ipynb version
 # https://github.com/tensorflow/text/blob/master/docs/tutorials/text_classification_rnn.ipynb
