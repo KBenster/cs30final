@@ -9,10 +9,10 @@ import sqlite3
 tfds.disable_progress_bar()
 
 database_connection = sqlite3.connect('database.db')
-database_connection.execute("""CREATE TABLE `sentiments` (
-                                  `ticker` TEXT(200) NOT NULL,
-                                  `sentiment` INT
-                                );""")
+# database_connection.execute("""CREATE TABLE `sentiments` (
+#                                   `ticker` TEXT(200) NOT NULL,
+#                                   `sentiment` INT
+#                                 );""")
 
 
 def plot_graphs(history, metric):
@@ -101,25 +101,25 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  verbose=1)
 
 #train the model...
-history = model.fit(train_dataset, epochs=3,
-                    validation_data=test_dataset,
-                    validation_steps=30,
-                    callbacks=[cp_callback])
+# history = model.fit(train_dataset, epochs=5,
+#                     validation_data=test_dataset,
+#                     validation_steps=30,
+#                     callbacks=[cp_callback])
 
-model.save("model1.h5")
-#model.load_weights(checkpoint_path)
+#model.save("model1.h5", save_format='tf')
+model.load_weights("model1.h5", load_format='tf')
 test_loss, test_acc = model.evaluate(test_dataset)
 
 print('Test Loss:', test_loss)
 print('Test Accuracy:', test_acc)
 
-plt.figure(figsize=(16, 8))
-plt.subplot(1, 2, 1)
-plot_graphs(history, 'accuracy')
-plt.ylim(None, 1)
-plt.subplot(1, 2, 2)
-plot_graphs(history, 'loss')
-plt.ylim(0, None)
+# plt.figure(figsize=(16, 8))
+# plt.subplot(1, 2, 1)
+# plot_graphs(history, 'accuracy')
+# plt.ylim(None, 1)
+# plt.subplot(1, 2, 2)
+# plot_graphs(history, 'loss')
+# plt.ylim(0, None)
 
 sample_text = ('The movie was cool. The animation and the graphics '
                'were out of this world. I would recommend this movie.')
@@ -135,3 +135,18 @@ database_connection.close()
 
 # saving models so you dont have to retrain every time you run the program
 # https://www.tensorflow.org/tutorials/keras/save_and_load
+
+
+#SETUP TOOLS INFORMATION
+#INSHALLAH WE WILL FIX THIS
+# PS C:\Users\1302215\Desktop\github\cs30final> python -m pip show setuptools
+# Name: setuptools
+# Version: 65.5.0
+# Summary: Easily download, build, install, upgrade, and uninstall Python packages
+# Home-page: https://github.com/pypa/setuptools
+# Author: Python Packaging Authority
+# Author-email: distutils-sig@python.org
+# License:
+# Location: c:\program files\windowsapps\pythonsoftwarefoundation.python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\site-packages
+# Requires:
+# Required-by: tensorboard
