@@ -35,9 +35,9 @@ train_dataset, test_dataset = dataset['train'], dataset['test']
 #  TensorSpec(shape=(), dtype=tf.int64, name=None))
 
 
-for example, label in train_dataset.take(1):
-  print('text: ', example.numpy())
-  print('label: ', label.numpy())
+# for example, label in train_dataset.take(1):
+#   print('text: ', example.numpy())
+#   print('label: ', label.numpy())
 
 BUFFER_SIZE = 10000
 BATCH_SIZE = 64
@@ -106,8 +106,8 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 #                     validation_steps=30,
 #                     callbacks=[cp_callback])
 
-#model.save("model1.h5", save_format='tf')
-model.load_weights("model1.h5", load_format='tf')
+# model.save("model2.aaa", save_format='tf')
+model.load_weights("model2.aaa")
 test_loss, test_acc = model.evaluate(test_dataset)
 
 print('Test Loss:', test_loss)
