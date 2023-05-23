@@ -14,10 +14,7 @@ def get_sentiment_features_labels():
     sentiment_labels = sentiment_features.pop('sentiment')
 
     sentiment_features = np.array(sentiment_features)
+    sentiment_labels = np.array(sentiment_labels)
 
-    print(sentiment_features)
-    print(sentiment_labels)
-
+    return sentiment_labels, sentiment_features
 # https://www.tensorflow.org/tutorials/load_data/csv
-
-get_sentiment_features_labels()
