@@ -27,6 +27,7 @@ dataset, info = tfds.load('imdb_reviews', with_info=True,
 
 train_dataset, test_dataset = dataset['train'], dataset['test']
 
+print(train_dataset)
 #attribute
 #The type specification of an element in this dataset
 #train_dataset.element_spec
