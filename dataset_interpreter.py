@@ -15,6 +15,8 @@ def get_sentiment_features_labels():
 
     sentiment_features = np.array(sentiment_features)
     sentiment_labels = np.array(sentiment_labels)
+    sentiment_labels[sentiment_labels == ''] = 0.0
+    sentiment_labels = sentiment_labels.astype(np.int16)
 
     return sentiment_labels, sentiment_features
 # https://www.tensorflow.org/tutorials/load_data/csv
