@@ -20,3 +20,6 @@ def get_sentiment_features_labels():
 
     return sentiment_labels, sentiment_features
 # https://www.tensorflow.org/tutorials/load_data/csv
+
+def get_twitter_features_labels():
+    
