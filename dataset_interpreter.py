@@ -22,4 +22,4 @@ def get_sentiment_features_labels():
 # https://www.tensorflow.org/tutorials/load_data/csv
 
 def get_twitter_features_labels():
-    
+    return None

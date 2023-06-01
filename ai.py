@@ -42,6 +42,7 @@ model.compile(loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
 history = model.fit(features, labels, epochs=3)
 
 model.save("financialtest1", save_format="tf")
+# model.load_weights("goodmodel")
 
 sample_text = "company reported net loss and bankrupty. my wife left me. loss $4 billion."
 predictions = model.predict(np.array([sample_text]))
