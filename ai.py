@@ -30,6 +30,8 @@ model = tf.keras.Sequential([
         output_dim=64,
         mask_zero=True
     ),
+    #LSTM has more parameters and flexibility than GRU, but has a higher risk of overfitting
+    #and has a higher computational cost. GRU has fewer parameters
     tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64)),
     tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dense(1)
