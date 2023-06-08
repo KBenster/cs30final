@@ -2,7 +2,8 @@ import tensorflow as tf
 import dataset_interpreter
 import numpy as np
 
-features, labels = dataset_interpreter.get_sentiment_features_labels()
+labels, features = dataset_interpreter.get_sentiment_features_labels()
+features = features.reshape(features.shape[0])
 
 train_dataset = tf.data.Dataset.from_tensor_slices((features, labels))
 print("a", train_dataset.take(1))
@@ -21,12 +22,7 @@ encoder = tf.keras.layers.TextVectorization(
     max_tokens=VOCAB_SIZE
 )
 
-def ohmygod(a):
-    print("oh my god ", a)
-    return a
-encoder.adapt(train_dataset.map(lambda label, feature:ohmygod(feature))) #encoder.adapt(train_dataset.map(lambda text, label: text))
-#When using `TextVectorization` to tokenize strings, 
-#the input rank must be 1 or the last shape dimension must be 1. Received: inputs.shape=(None, None) with rank=2
+encoder.adapt(features)
 
 #rank 0 = scalar
 #rank 1 = vector
@@ -44,7 +40,7 @@ model = tf.keras.Sequential([
     ),
     #LSTM has more parameters and flexibility than GRU, but has a higher risk of overfitting
     #and has a higher computational cost. GRU has fewer parameters
-    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64)),
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(256)),
     tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dense(1)
 ])
@@ -53,7 +49,7 @@ model.compile(loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
               optimizer=tf.keras.optimizers.Adam(1e-4),
               metrics=['accuracy'])
 
-history = model.fit(features, labels, epochs=3)
+history = model.fit(train_dataset, epochs=30)
 
 model.save("financialtest1", save_format="tf")
 # model.load_weights("goodmodel")
@@ -62,3 +58,8 @@ sample_text = "company reported net loss and bankrupty. my wife left me. loss $4
 predictions = model.predict(np.array([sample_text]))
 
 print(predictions)
+
+while True:
+    t = input()
+    predictions = model.predict(np.array([t]))
+    print(predictions)

@@ -22,4 +22,17 @@ def get_sentiment_features_labels():
 
 
 def get_twitter_features_labels():
-    return None
+    sentiment_train = pd.read_csv(
+        "./datasets/twitter.csv",
+        names=["sentiment", "text"],
+        encoding='latin-1' # oooga booga utf-8
+    )
+
+    sentiment_features = sentiment_train.copy()
+    sentiment_labels = sentiment_features.pop('sentiment')
+
+    sentiment_features = np.array(sentiment_features)
+    sentiment_labels = np.array(sentiment_labels)
+    sentiment_labels = sentiment_labels.astype(np.int16)
+
+    return sentiment_features, sentiment_labels
