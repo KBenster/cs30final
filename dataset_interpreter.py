@@ -23,7 +23,7 @@ def get_sentiment_features_labels():
 
 def get_twitter_features_labels():
     sentiment_train = pd.read_csv(
-        "./datasets/twitter.csv",
+        "./datasets/twitter_parsed.csv",
         names=["sentiment", "text"],
         encoding='latin-1' # oooga booga utf-8
     )
